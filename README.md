@@ -5,7 +5,7 @@ Building the tutorial app from Miguel Grinberg's "Flask Web Development," 2nd ed
 
 In order to continue working on this project, you will need to set up a virtual environment with the proper dependencies and versions. The following Linux commands will suffice:
 
-```
+```sh
 # Clone the project repo
 # In project folder, create a new virtualenv called env
 # Naming it env will ensure it is ignored by git
