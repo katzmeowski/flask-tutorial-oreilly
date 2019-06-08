@@ -17,6 +17,12 @@ $ source env/bin/activate
 # Install required dependencies with pip
 $ pip install -r requirements.txt
 
+# Generate and initialize development database
+$ flask shell
+>>> db.create_all()
+>>> quit()
+$ flask db init
+
 # If dependencies or versions need to be changed, update requirements.txt
 $ pip freeze > requirements.txt
 
