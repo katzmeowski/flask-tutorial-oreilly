@@ -30,10 +30,23 @@ app.config['SECRET_KEY'] = 'do not use in prod or store in version control! crea
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = NameForm()
+    # If the form was submitted (via a POST)
     if form.validate_on_submit():
+        # Check whether the username already exists in DB
+        user = User.query.filter_by(username=form.name.data).first()
+        if user is None:
+            # If username doesn't already exist, create a new entry for it
+            user = User(username=form.name.data)
+            db.session.add(user)
+            db.session.commit()
+            session['known'] = False
+        else:
+            session['known'] = True
         session['name'] = form.name.data
+        form.name.data = ''
         return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'))
+    # If the page was requested via GET
+    return render_template('index.html', form=form, name=session.get('name'), known=session.get('known', False))
 
 @app.route('/user/<name>')
 def user(name):
